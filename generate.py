@@ -4,7 +4,15 @@ import pyrosim.pyrosim as pyrosim
 # This link will contain a box
 pyrosim.Start_SDF("box.sdf")
 
+length = 1
+width = 2
+height = 3
+
+x = 0
+z = 0
+y = 1.5
+
 # Stores a box with these specifications to box.sdf
-pyrosim.Send_Cube(name="Box", pos=[0, 0, 0.5], size=[1, 1, 1])
+pyrosim.Send_Cube(name="Box", pos=[x, z, y], size=[length, width, height])
 
 pyrosim.End()
