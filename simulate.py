@@ -14,7 +14,7 @@ p.setGravity(0, 0, -9.8, physicsClient)
 planeId = p.loadURDF("plane.urdf")
 
 # Load our link
-p.loadSDF("box.sdf")
+p.loadSDF("boxes.sdf")
 
 # Step simulator physics 1000 times
 for i in range(0, 1000):
