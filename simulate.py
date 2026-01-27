@@ -1,11 +1,16 @@
 import pybullet as p
 import time
 
+# Creates physics object and connects to GUI
 physicsClient = p.connect(p.GUI)
 
-for i in range(1, 1000):
-    p.stepSimulation()
-    time.sleep(0.016)
-    print(i)
-p.disconnect()
+# When enabled, this disables pybullet sidebars
+#p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
 
+# Step simulator physics 1000 times
+for i in range(0, 1000):
+    p.stepSimulation()
+    time.sleep(.1)
+    print(i)
+
+p.disconnect()
