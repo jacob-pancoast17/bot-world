@@ -13,6 +13,9 @@ p.setGravity(0, 0, -9.8, physicsClient)
 # Creates a floor (needs pybullet_data imported)
 planeId = p.loadURDF("plane.urdf")
 
+# Create robot
+robotId = p.loadURDF("body.urdf")
+
 # Load our link
 p.loadSDF("world.sdf")
 
