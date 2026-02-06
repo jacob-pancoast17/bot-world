@@ -1,5 +1,7 @@
+import numpy
 import pybullet as p
 import pybullet_data
+import pyrosim.pyrosim as pyrosim
 import time
 
 # Creates physics object and connects to GUI
@@ -19,10 +21,20 @@ robotId = p.loadURDF("body.urdf")
 # Load our link
 p.loadSDF("world.sdf")
 
-# Step simulator physics 1000 times
-for i in range(0, 1000):
-    p.stepSimulation()
-    time.sleep(.1)
-    print(i)
+# Sensor preparation
+pyrosim.Prepare_To_Simulate(robotId)
 
+# Create sensor storage (make n = number of steps in simulation)
+backLegSensorValues = numpy.zeros(10000)
+
+# Step simulator physics n times
+for i in range(0, 10000):
+    p.stepSimulation()
+
+    # Create touch sensor   
+    backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
+
+    time.sleep(.01)
+
+print(backLegSensorValues)
 p.disconnect()
