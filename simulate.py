@@ -7,12 +7,12 @@ import random
 import time
 
 BackLeg_amplitude = math.pi/4
-BackLeg_frequency = 10
-BackLeg_phaseOffset = 0 
+BackLeg_frequency = 5
+BackLeg_phaseOffset = 0
 
 FrontLeg_amplitude = math.pi/4
-FrontLeg_frequency = 10
-FrontLeg_phaseOffset = numpy.pi
+FrontLeg_frequency = 5
+FrontLeg_phaseOffset = -math.pi/2
 
 # Creates physics object and connects to GUI
 physicsClient = p.connect(p.GUI)
@@ -41,9 +41,9 @@ frontLegSensorValues = numpy.zeros(1000)
 # Create vector of angles
 BackLeg_angles = BackLeg_amplitude * numpy.sin(BackLeg_frequency * (numpy.linspace(0, 2*math.pi, num=1000)) + BackLeg_phaseOffset)
 FrontLeg_angles = FrontLeg_amplitude * numpy.sin(FrontLeg_frequency * (numpy.linspace(0, 2*math.pi, num=1000)) + FrontLeg_phaseOffset)
-numpy.save('./data/back_leg_motor_data', BackLeg_angles)
-numpy.save('./data/front_leg_motor_data', FrontLeg_angles)
-exit()
+#numpy.save('./data/back_leg_motor_data', BackLeg_angles)
+#numpy.save('./data/front_leg_motor_data', FrontLeg_angles)
+#exit()
 
 # Step simulator physics n times
 for i in range(0, 1000):
