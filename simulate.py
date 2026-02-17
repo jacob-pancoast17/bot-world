@@ -1,3 +1,4 @@
+import math
 import numpy
 import pybullet as p
 import pybullet_data
@@ -25,16 +26,32 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
 # Create sensor storage (make n = number of steps in simulation)
-backLegSensorValues = numpy.zeros(100)
-frontLegSensorValues = numpy.zeros(100)
+backLegSensorValues = numpy.zeros(10000)
+frontLegSensorValues = numpy.zeros(10000)
 
 # Step simulator physics n times
-for i in range(0, 100):
+for i in range(0, 10000):
     p.stepSimulation()
 
     # Create touch sensor  s 
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
+
+    # Create motor
+    pyrosim.Set_Motor_For_Joint(
+        bodyIndex = robotId,
+        jointName = b'Torso_BackLeg',
+        controlMode = p.POSITION_CONTROL,
+        targetPosition = -(math.pi/6),
+        maxForce = 500
+        )
+    pyrosim.Set_Motor_For_Joint(
+        bodyIndex = robotId,
+        jointName = b'Torso_FrontLeg',
+        controlMode = p.POSITION_CONTROL,
+        targetPosition = (math.pi/6),
+        maxForce = 500
+        )
 
     time.sleep(.01)
 
