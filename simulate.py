@@ -12,7 +12,7 @@ BackLeg_phaseOffset = 0
 
 FrontLeg_amplitude = math.pi/4
 FrontLeg_frequency = 10
-FrontLeg_phaseOffset = 1
+FrontLeg_phaseOffset = numpy.pi
 
 # Creates physics object and connects to GUI
 physicsClient = p.connect(p.GUI)
