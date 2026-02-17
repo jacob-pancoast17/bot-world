@@ -6,6 +6,10 @@ import pyrosim.pyrosim as pyrosim
 import random
 import time
 
+amplitude = math.pi/4
+frequency = 1
+phaseOffset = 0 
+
 # Creates physics object and connects to GUI
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -31,7 +35,7 @@ backLegSensorValues = numpy.zeros(1000)
 frontLegSensorValues = numpy.zeros(1000)
 
 # Create vector of angles
-angles = numpy.sin(numpy.linspace(0, 2*math.pi, num=1000)) * (math.pi/4)
+angles = amplitude * numpy.sin(frequency * (numpy.linspace(0, 2*math.pi, num=1000)) + phaseOffset)
 #numpy.save('./data/sin', angles)
 
 # Step simulator physics n times
