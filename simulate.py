@@ -3,6 +3,7 @@ import numpy
 import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
+import random
 import time
 
 # Creates physics object and connects to GUI
@@ -26,11 +27,15 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
 # Create sensor storage (make n = number of steps in simulation)
-backLegSensorValues = numpy.zeros(10000)
-frontLegSensorValues = numpy.zeros(10000)
+backLegSensorValues = numpy.zeros(1000)
+frontLegSensorValues = numpy.zeros(1000)
+
+# Create vector of angles
+angles = numpy.sin(numpy.linspace(0, 2*math.pi, num=1000)) * (math.pi/4)
+#numpy.save('./data/sin', angles)
 
 # Step simulator physics n times
-for i in range(0, 10000):
+for i in range(0, 1000):
     p.stepSimulation()
 
     # Create touch sensor  s 
@@ -42,15 +47,15 @@ for i in range(0, 10000):
         bodyIndex = robotId,
         jointName = b'Torso_BackLeg',
         controlMode = p.POSITION_CONTROL,
-        targetPosition = -(math.pi/6),
-        maxForce = 500
+        targetPosition = angles[i],
+        maxForce = 20
         )
     pyrosim.Set_Motor_For_Joint(
         bodyIndex = robotId,
         jointName = b'Torso_FrontLeg',
         controlMode = p.POSITION_CONTROL,
-        targetPosition = (math.pi/6),
-        maxForce = 500
+        targetPosition = angles[i],
+        maxForce = 20
         )
 
     time.sleep(.01)
