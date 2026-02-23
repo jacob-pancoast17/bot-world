@@ -13,3 +13,5 @@ gravity = -9.8
 simSteps = 1000
 
 maxForce = 20
+
+simSpeed = .02

@@ -1,7 +1,6 @@
 import constants as c
 import pybullet as p
 import pybullet_data
-import pyrosim.pyrosim as pyrosim
 from robot import ROBOT
 import time
 from world import WORLD
@@ -28,24 +27,7 @@ class SIMULATION:
         for i in range(0, c.simSteps):
             p.stepSimulation()
 
-            # # Create touch sensors 
-            # backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
-            # frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
-
-            # # Create motor
-            # pyrosim.Set_Motor_For_Joint(
-            #     bodyIndex = self.robot.robotId,
-            #     jointName = b'Torso_BackLeg',
-            #     controlMode = p.POSITION_CONTROL,
-            #     targetPosition = BackLeg_angles[i],
-            #     maxForce = c.maxForce
-            #     )
-            # pyrosim.Set_Motor_For_Joint(
-            #     bodyIndex = self.robot.robotId,
-            #     jointName = b'Torso_FrontLeg',
-            #     controlMode = p.POSITION_CONTROL,
-            #     targetPosition = FrontLeg_angles[i],
-            #     maxForce = c.maxForce
-            #     )
+            self.robot.Sense(i)
+            self.robot.Act(i)
             
-            time.sleep(.01)
+            time.sleep(c.simSpeed)
