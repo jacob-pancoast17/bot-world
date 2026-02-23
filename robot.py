@@ -1,7 +1,21 @@
+import pybullet as p
+import pyrosim.pyrosim as pyrosim
 from motor import MOTOR
 from sensor import SENSOR
 
 class ROBOT:
     def __init__(self):
-        self.motor = MOTOR()
-        self.sensor = SENSOR()
+        self.motors = {}
+
+        # Create robot
+        self.robotId = p.loadURDF("body.urdf")
+
+        pyrosim.Prepare_To_Simulate(self.robotId)
+
+        self.Prepare_To_Sense()
+
+    def Prepare_To_Sense(self):
+        self.sensors = {}
+        
+        for linkName in pyrosim.linkNamesToIndices:
+            self.sensors[linkName] = SENSOR(linkName)
