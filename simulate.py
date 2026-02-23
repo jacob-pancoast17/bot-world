@@ -10,7 +10,7 @@ from simulation import SIMULATION
 import time
 from world import WORLD
 
-pass
+simulation = SIMULATION()
 # BackLeg_amplitude = c.BackLeg_amplitude
 # BackLeg_frequency = c.BackLeg_frequency
 # BackLeg_phaseOffset = c.BackLeg_phaseOffset

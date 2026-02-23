@@ -1,3 +1,7 @@
+from robot import ROBOT
+from world import WORLD
+
 class SIMULATION:
     def __init__(self):
-        simulation = SIMULATION()
+        self.robot = ROBOT()
+        self.world = WORLD()
