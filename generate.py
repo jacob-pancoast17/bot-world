@@ -10,7 +10,7 @@ def Create_World():
 
     pyrosim.End()
 
-def Create_Robot():
+def Generate_Body():
     # File to store desc of robot's body
     pyrosim.Start_URDF("body.urdf")
 
@@ -25,5 +25,15 @@ def Create_Robot():
 
     pyrosim.End()
 
+def Generate_Brain():
+    # File to store desc of robot's body
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+
+    # Add neuron
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+
+    pyrosim.End()
+
 Create_World()
-Create_Robot()
+Generate_Body()
+Generate_Brain()
