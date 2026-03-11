@@ -58,17 +58,13 @@ class NEURON:
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
 
-        self.Set_Value(0)
-
-        print(self.Get_Value())
-
         for key in synapses.keys():
             
             if key[1] == self.Get_Name():
                 
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[key].Get_Weight(), neurons[key[0]].Get_Value())
                 
-        print(self.Get_Value())
+        self.Threshold()
 
 
     def Print(self):
