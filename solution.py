@@ -10,13 +10,13 @@ class SOLUTION:
         # to be over the range [-1, 1]
         self.weights = 2 * numpy.random.rand(3, 2) - 1
 
-    def Evaluate(self):
+    def Evaluate(self, directOrGUI):
 
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
 
-        os.system("python3 simulate.py")
+        os.system(f"python3 simulate.py {directOrGUI}")
 
         with open("fitness.txt", 'r') as file:
             self.fitness = file.read()

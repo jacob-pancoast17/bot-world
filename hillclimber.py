@@ -10,7 +10,7 @@ class HILL_CLIMBER:
 
     def Evolve(self):
 
-        self.parent.Evaluate()
+        self.parent.Evaluate('GUI')
 
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -19,7 +19,7 @@ class HILL_CLIMBER:
 
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate()
+        self.child.Evaluate('DIRECT')
         self.Print()
         self.Select()
 
@@ -37,6 +37,11 @@ class HILL_CLIMBER:
             self.parent = self.child
 
     def Print(self):
+
         print()
         print(f"Parent's fitness: {self.parent.fitness} | Child's fitness: {self.child.fitness}")
         print()
+
+    def Show_Best(self):
+
+        self.parent.Evaluate('GUI')
