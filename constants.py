@@ -10,7 +10,7 @@ FrontLeg_phaseOffset = -math.pi/2
 
 gravity = -9.8
 
-simSteps = 1000
+simSteps = 300
 
 maxForce = 20
 
