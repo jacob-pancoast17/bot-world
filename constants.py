@@ -15,3 +15,5 @@ simSteps = 300
 maxForce = 20
 
 simSpeed = .02
+
+numberOfGenerations = 10

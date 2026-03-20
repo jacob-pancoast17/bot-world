@@ -6,9 +6,14 @@ import time
 from world import WORLD
 
 class SIMULATION:
-    def __init__(self):
+    def __init__(self, directOrGUI):
         # Creates physics object and connects to GUI
-        self.physicsClient = p.connect(p.GUI)
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+
+        else:
+            self.physicsClient = p.connect(p.GUI)
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # When enabled, this disables pybullet sidebars
@@ -32,3 +37,7 @@ class SIMULATION:
             self.robot.Act(i)
             
             time.sleep(c.simSpeed)
+    
+    def Get_Fitness(self):
+
+        self.robot.Get_Fitness()
