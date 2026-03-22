@@ -7,8 +7,11 @@ from world import WORLD
 
 class SIMULATION:
     def __init__(self, directOrGUI):
+
+        self.directOrGUI = directOrGUI
+
         # Creates physics object and connects to GUI
-        if directOrGUI == "DIRECT":
+        if self.directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
 
         else:
@@ -36,7 +39,8 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)
             
-            time.sleep(c.simSpeed)
+            if self.directOrGUI == 'GUI':
+                time.sleep(c.simSpeed)
     
     def Get_Fitness(self):
 
