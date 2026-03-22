@@ -1,25 +1,17 @@
 import numpy
 import os
 from pyrosim import pyrosim
+import time
 
 class SOLUTION:
 
-    def __init__(self):
-        
+    def __init__(self, ID):
+
+        self.myID = ID
+
         # Create a 3x2 matrix of random weights scaled 
         # to be over the range [-1, 1]
         self.weights = 2 * numpy.random.rand(3, 2) - 1
-
-    def Evaluate(self, directOrGUI):
-
-        self.Create_World()
-        self.Generate_Body()
-        self.Generate_Brain()
-
-        os.system(f"start /B python3 simulate.py {directOrGUI}")
-
-        with open("fitness.txt", 'r') as file:
-            self.fitness = file.read()
 
     def Create_World(self):
         # Tell pyrosim the name of the file info about the world is stored in
@@ -47,7 +39,7 @@ class SOLUTION:
 
     def Generate_Brain(self):
         # File to store desc of robot's body
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
 
         # Add neuron
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
@@ -76,3 +68,26 @@ class SOLUTION:
         randomColumn = numpy.random.randint(0,2)
 
         self.weights[randomRow][randomColumn] = 2 * numpy.random.random() - 1
+    
+    def Set_ID(self, ID):
+
+        self.myID = ID
+
+    def Start_Simulation(self, directOrGUI):
+
+        self.Create_World()
+        self.Generate_Body()
+        self.Generate_Brain()
+
+        os.system(f"start /B python3 simulate.py {directOrGUI} {self.myID}")
+
+    def Wait_For_Simulation_To_End(self):
+
+        # Wait for the file to be created
+        while not os.path.exists(f"fitness{self.myID}.txt"):
+            time.sleep(.01)
+
+        with open(f"fitness{self.myID}.txt", 'r') as file:
+            self.fitness = file.read()
+        
+        os.system(f"del fitness{self.myID}.txt")

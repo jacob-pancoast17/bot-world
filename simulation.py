@@ -6,9 +6,10 @@ import time
 from world import WORLD
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, simulationID):
 
         self.directOrGUI = directOrGUI
+        self.simulationID = simulationID
 
         # Creates physics object and connects to GUI
         if self.directOrGUI == "DIRECT":
@@ -24,7 +25,7 @@ class SIMULATION:
 
         p.setGravity(0, 0, c.gravity, self.physicsClient)
 
-        self.robot = ROBOT()
+        self.robot = ROBOT(self.simulationID)
         self.world = WORLD()
     
     def __del__(self):
