@@ -16,7 +16,7 @@ class SOLUTION:
         self.Generate_Body()
         self.Generate_Brain()
 
-        os.system(f"python3 simulate.py {directOrGUI}")
+        os.system(f"start /B python3 simulate.py {directOrGUI}")
 
         with open("fitness.txt", 'r') as file:
             self.fitness = file.read()

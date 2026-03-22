@@ -12,8 +12,10 @@ gravity = -9.8
 
 simSteps = 300
 
-maxForce = 20
+maxForce = 5
 
 simSpeed = .02
 
-numberOfGenerations = 5
+numberOfGenerations = 20
+
+populationSize = 2
