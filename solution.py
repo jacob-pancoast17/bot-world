@@ -79,7 +79,7 @@ class SOLUTION:
         self.Generate_Body()
         self.Generate_Brain()
 
-        os.system(f"start /B python3 simulate.py {directOrGUI} {self.myID}")
+        os.system(f"start /B python3 simulate.py {directOrGUI} {self.myID} >nul 2>&1")
 
     def Wait_For_Simulation_To_End(self):
 
