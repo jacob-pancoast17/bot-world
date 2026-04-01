@@ -112,17 +112,10 @@ class SOLUTION:
         self.myID = ID
 
     def Start_Simulation(self, directOrGUI):
-
-        self.Create_World()
-        self.Generate_Body()
         self.Generate_Brain()
         
-        while not os.path.exists("world.sdf"):
-            time.sleep(0.25)
-        while not os.path.exists("body.urdf"):
-            time.sleep(0.25)
         while not os.path.exists(f"brain{self.myID}.nndf"):
-            time.sleep(0.25)
+            time.sleep(0.05)
 
         os.system(f"start /B python3 simulate.py {directOrGUI} {self.myID}")
 

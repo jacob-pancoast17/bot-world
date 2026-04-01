@@ -56,6 +56,7 @@ class ROBOT:
     def Get_Fitness(self, startX):
         position, _ = p.getBasePositionAndOrientation(self.robotId)
         xCoordinate = position[0]
+        zCoordinate = position[2]
         displacement = xCoordinate - startX
         
         with open(f"tmp{self.simulationID}.txt", 'w') as file:

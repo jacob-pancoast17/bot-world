@@ -6,15 +6,17 @@ from solution import SOLUTION
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
-
         os.system("del brain*.nndf")
         os.system("del fitness*.txt")
+
+        tempSolution = SOLUTION(0)
+        tempSolution.Create_World()
+        tempSolution.Generate_Body()
 
         self.parents = {}
         self.nextAvailableID = 0
 
         for i in range(c.populationSize):
-
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
             
@@ -60,7 +62,7 @@ class PARALLEL_HILL_CLIMBER:
 
         for key in self.parents.keys():
             
-            if (self.children[key].fitness > self.parents[key].fitness):
+            if (self.children[key].fitness < self.parents[key].fitness):
                 self.parents[key] = self.children[key]
 
     def Print(self):

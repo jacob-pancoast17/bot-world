@@ -10,17 +10,17 @@ FrontLeg_phaseOffset = 0
 
 gravity = -9.8
 
-simSteps = 300
+simSteps = 1000
 
-maxForce = 5
+maxForce = 20
 
 simSpeed = .02
 
-numberOfGenerations = 100
+numberOfGenerations = 50
 
 populationSize = 10
 
 numSensorNeurons = 4
 numMotorNeurons = 8
 
-motorJointRange = 1.0
+motorJointRange = 0.5
