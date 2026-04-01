@@ -27,6 +27,9 @@ class SIMULATION:
 
         self.robot = ROBOT(self.simulationID)
         self.world = WORLD()
+
+        position, _ = p.getBasePositionAndOrientation(self.robot.robotId)
+        self.startX = position[0]
     
     def __del__(self):
         p.disconnect()
@@ -45,4 +48,4 @@ class SIMULATION:
     
     def Get_Fitness(self):
 
-        self.robot.Get_Fitness()
+        self.robot.Get_Fitness(self.startX)

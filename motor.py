@@ -15,9 +15,6 @@ class MOTOR:
         self.frequency = c.BackLeg_frequency
         self.offset = c.BackLeg_phaseOffset
 
-        if self.jointName == b'Torso_FrontLeg':
-            self.frequency = self.frequency / 2
-
         # Create vector of angles
         self.motorValues = self.amplitude * numpy.sin(
             self.frequency * (

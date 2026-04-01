@@ -4,6 +4,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 import pyrosim.pyrosim as pyrosim
 from motor import MOTOR
 from sensor import SENSOR
+import constants as c
 
 class ROBOT:
     def __init__(self, simulationID):
@@ -26,6 +27,7 @@ class ROBOT:
         self.sensors = {}
         
         for linkName in pyrosim.linkNamesToIndices:
+            
             self.sensors[linkName] = SENSOR(linkName)
     
     def Sense(self, stepNum):
@@ -36,30 +38,27 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName] = MOTOR(jointName)
+            
+            self.motors[jointName.decode("utf-8")] = MOTOR(jointName)
     
     def Act(self, stepNum):
         # for each motor neuron, 
         for neuron in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuron):
-                jointName = self.nn.Get_Motor_Neurons_Joint(neuron).encode("utf-8")
-                desiredAngle = self.nn.Get_Value_Of(neuron)
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuron)
+                desiredAngle = self.nn.Get_Value_Of(neuron) * c.motorJointRange
                 self.motors[jointName].Set_Value(self, desiredAngle)
-                jointName.decode("utf-8")
     
     def Think(self):
         self.nn.Update()
-        #self.nn.Print()
+        # self.nn.Print()
 
-    def Get_Fitness(self):
+    def Get_Fitness(self, startX):
+        position, _ = p.getBasePositionAndOrientation(self.robotId)
+        xCoordinate = position[0]
+        displacement = xCoordinate - startX
         
-        self.stateOfLinkZero = p.getLinkState(self.robotId,0)
-        
-        self.positionOfLinkZero = self.stateOfLinkZero[0]
-        self.xCoordinateOfLinkZero = self.positionOfLinkZero[0]
-        
-        # Write to file
         with open(f"tmp{self.simulationID}.txt", 'w') as file:
-            file.write(str(self.xCoordinateOfLinkZero))
+            file.write(str(displacement))
         
         os.system(f"rename tmp{self.simulationID}.txt fitness{self.simulationID}.txt")
