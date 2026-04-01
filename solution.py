@@ -15,8 +15,13 @@ class SOLUTION:
         self.weights = 2 * numpy.random.rand(c.numSensorNeurons, c.numMotorNeurons) - 1
 
     def Create_World(self):
+
         # Tell pyrosim the name of the file info about the world is stored in
         pyrosim.Start_SDF("world.sdf")
+
+        # Wait for the file to be created
+        while not os.path.exists(f"world.sdf"):
+            time.sleep(.01)
 
         # Stores a box with these specifications to . format    
         pyrosim.Send_Cube(name="Box", pos=[3, 3, 0.5], size=[1, 1, 1])
@@ -26,6 +31,10 @@ class SOLUTION:
     def Generate_Body(self):
         # File to store desc of robot's body
         pyrosim.Start_URDF("body.urdf")
+
+        # Wait for the file to be created
+        while not os.path.exists(f"body.urdf"):
+            time.sleep(.01)
 
         # Stores a box with these specifications to . format
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[1, 1, 1])
@@ -53,6 +62,10 @@ class SOLUTION:
     def Generate_Brain(self):
         # File to store desc of robot's body
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
+
+        # Wait for the file to be created
+        while not os.path.exists(f"brain{self.myID}.nndf"):
+            time.sleep(.01)
 
         # Add neuron
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")

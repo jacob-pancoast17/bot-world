@@ -16,9 +16,9 @@ maxForce = 5
 
 simSpeed = .02
 
-numberOfGenerations = 1
+numberOfGenerations = 10
 
-populationSize = 1
+populationSize = 10
 
 numSensorNeurons = 9
 numMotorNeurons = 8
