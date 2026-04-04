@@ -16,7 +16,7 @@ maxForce = 20
 
 simSpeed = .02
 
-numberOfGenerations = 50
+numberOfGenerations = 1
 
 populationSize = 10
 

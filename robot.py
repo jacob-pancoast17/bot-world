@@ -11,7 +11,7 @@ class ROBOT:
         self.simulationID = simulationID
 
         # Create robot
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF(f"body{simulationID}.urdf")
 
         # Create brain
         self.nn = NEURAL_NETWORK(f"brain{simulationID}.nndf")
@@ -21,6 +21,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
+        os.system(f"del body{simulationID}.urdf")
         os.system(f"del brain{simulationID}.nndf")
 
     def Prepare_To_Sense(self):

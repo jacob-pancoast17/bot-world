@@ -26,7 +26,7 @@ class SIMULATION:
         p.setGravity(0, 0, c.gravity, self.physicsClient)
 
         self.robot = ROBOT(self.simulationID)
-        self.world = WORLD()
+        self.world = WORLD(self.simulationID)
 
         position, _ = p.getBasePositionAndOrientation(self.robot.robotId)
         self.startX = position[0]

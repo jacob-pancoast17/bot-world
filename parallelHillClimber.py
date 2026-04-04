@@ -8,6 +8,8 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         os.system("del brain*.nndf")
         os.system("del fitness*.txt")
+        os.system("del body*.urdf")
+        os.system("del world*.sdf")
 
         tempSolution = SOLUTION(0)
         tempSolution.Create_World()

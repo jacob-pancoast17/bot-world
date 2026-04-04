@@ -17,10 +17,10 @@ class SOLUTION:
     def Create_World(self):
 
         # Tell pyrosim the name of the file info about the world is stored in
-        pyrosim.Start_SDF("world.sdf")
+        pyrosim.Start_SDF(f"world{self.myID}.sdf")
 
         # Wait for the file to be created
-        while not os.path.exists(f"world.sdf"):
+        while not os.path.exists(f"world{self.myID}.sdf"):
             time.sleep(.01)
 
         # Stores a box with these specifications to . format    
@@ -30,10 +30,10 @@ class SOLUTION:
 
     def Generate_Body(self):
         # File to store desc of robot's body
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF(f"body{self.myID}.urdf")
 
         # Wait for the file to be created
-        while not os.path.exists(f"body.urdf"):
+        while not os.path.exists(f"body{self.myID}.urdf"):
             time.sleep(.01)
 
         # Stores a box with these specifications to . format
@@ -112,6 +112,8 @@ class SOLUTION:
         self.myID = ID
 
     def Start_Simulation(self, directOrGUI):
+        self.Create_World()
+        self.Generate_Body()
         self.Generate_Brain()
         
         while not os.path.exists(f"brain{self.myID}.nndf"):
