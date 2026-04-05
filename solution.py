@@ -42,11 +42,17 @@ class SOLUTION:
         while not os.path.exists(f"body{self.myID}.urdf"):
             time.sleep(.01)
 
-        # Take measurements
+        # Obtain new lengths
         BackLeg_Length = self.upper_leg_lengths[0][0]
         FrontLeg_Length = self.upper_leg_lengths[0][1]
         LeftLeg_Length = self.upper_leg_lengths[0][2]
         RightLeg_Length = self.upper_leg_lengths[0][3]
+
+        # And for lower
+        BackLowerLeg_Length = self.lower_leg_lengths[0][0]
+        FrontLowerLeg_Length = self.lower_leg_lengths[0][1]
+        LeftLowerLeg_Length = self.lower_leg_lengths[0][2]
+        RightLowerLeg_Length = self.lower_leg_lengths[0][3]
 
         # Stores a box with these specifications to . format
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[1, 1, 1])
@@ -54,12 +60,10 @@ class SOLUTION:
         pyrosim.Send_Cube(name="FrontLeg", pos=[0, (FrontLeg_Length / 2), 0], size=[0.2, FrontLeg_Length, 0.2])
         pyrosim.Send_Cube(name="LeftLeg", pos=[-(LeftLeg_Length / 2), 0, 0], size=[LeftLeg_Length, 0.2, 0.2])
         pyrosim.Send_Cube(name="RightLeg", pos=[(RightLeg_Length / 2), 0, 0], size=[RightLeg_Length, 0.2, 0.2])
-        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
-        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
-        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
-        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
-
-        
+        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -(BackLowerLeg_Length / 2)], size=[0.2, 0.2, BackLowerLeg_Length])
+        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -(FrontLowerLeg_Length / 2)], size=[0.2, 0.2, FrontLowerLeg_Length])
+        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -(LeftLowerLeg_Length / 2)], size=[0.2, 0.2, LeftLowerLeg_Length])
+        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -(RightLowerLeg_Length / 2)], size=[0.2, 0.2, RightLowerLeg_Length])
 
         # Creates a joint of format parent_child
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0, -0.5, 1], jointAxis = "1 0 0")
