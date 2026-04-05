@@ -18,9 +18,11 @@ simSpeed = .02
 
 numberOfGenerations = 1
 
-populationSize = 10
+populationSize = 1
 
 numSensorNeurons = 4
 numMotorNeurons = 8
 
 motorJointRange = 0.5
+
+numLegs = 4
