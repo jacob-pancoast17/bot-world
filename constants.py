@@ -10,13 +10,13 @@ FrontLeg_phaseOffset = 0
 
 gravity = -9.8
 
-simSteps = 1000
+simSteps = 100
 
 maxForce = 20
 
 simSpeed = .02
 
-numberOfGenerations = 1
+numberOfGenerations = 5
 
 populationSize = 1
 

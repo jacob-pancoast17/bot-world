@@ -15,10 +15,14 @@ class SOLUTION:
         self.weights = 2 * numpy.random.rand(c.numSensorNeurons, c.numMotorNeurons) - 1
 
         # Create a 1x4 matrix of random leg lengths 0.5-1.5
-        self.upper_leg_lengths = numpy.random.rand(1, c.numLegs) + 0.5
+        # row 1 = upper
+        # row 2 = lower
+        self.leg_lengths = numpy.random.rand(2, c.numLegs) + 0.5
 
-        # Create a 1x4 matrix of random leg lengths 0.5-1.5
-        self.lower_leg_lengths = numpy.random.rand(1, c.numLegs) + 0.5
+        # Create a 1x4 matrix of random leg thicknesses 0.1-0.5
+        # row 1 = upper
+        # row 2 = lower
+        self.leg_girths = 0.4 * numpy.random.rand(2, c.numLegs) + 0.1
 
     def Create_World(self):
 
@@ -43,27 +47,39 @@ class SOLUTION:
             time.sleep(.01)
 
         # Obtain new lengths
-        BackLeg_Length = self.upper_leg_lengths[0][0]
-        FrontLeg_Length = self.upper_leg_lengths[0][1]
-        LeftLeg_Length = self.upper_leg_lengths[0][2]
-        RightLeg_Length = self.upper_leg_lengths[0][3]
+        BackLeg_Length = self.leg_lengths[0][0]
+        FrontLeg_Length = self.leg_lengths[0][1]
+        LeftLeg_Length = self.leg_lengths[0][2]
+        RightLeg_Length = self.leg_lengths[0][3]
 
         # And for lower
-        BackLowerLeg_Length = self.lower_leg_lengths[0][0]
-        FrontLowerLeg_Length = self.lower_leg_lengths[0][1]
-        LeftLowerLeg_Length = self.lower_leg_lengths[0][2]
-        RightLowerLeg_Length = self.lower_leg_lengths[0][3]
+        BackLowerLeg_Length = self.leg_lengths[1][0]
+        FrontLowerLeg_Length = self.leg_lengths[1][1]
+        LeftLowerLeg_Length = self.leg_lengths[1][2]
+        RightLowerLeg_Length = self.leg_lengths[1][3]
+
+         # Obtain new sizes
+        BackLeg_Girth = self.leg_girths[0][0]
+        FrontLeg_Girth = self.leg_girths[0][1]
+        LeftLeg_Girth = self.leg_girths[0][2]
+        RightLeg_Girth = self.leg_girths[0][3]
+
+        # And for lower
+        BackLowerLeg_Girth = self.leg_girths[1][0]
+        FrontLowerLeg_Girth = self.leg_girths[1][1]
+        LeftLowerLeg_Girth = self.leg_girths[1][2]
+        RightLowerLeg_Girth = self.leg_girths[1][3]
 
         # Stores a box with these specifications to . format
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[1, 1, 1])
-        pyrosim.Send_Cube(name="BackLeg", pos=[0, -(BackLeg_Length / 2), 0], size=[0.2, BackLeg_Length, 0.2])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0, (FrontLeg_Length / 2), 0], size=[0.2, FrontLeg_Length, 0.2])
-        pyrosim.Send_Cube(name="LeftLeg", pos=[-(LeftLeg_Length / 2), 0, 0], size=[LeftLeg_Length, 0.2, 0.2])
-        pyrosim.Send_Cube(name="RightLeg", pos=[(RightLeg_Length / 2), 0, 0], size=[RightLeg_Length, 0.2, 0.2])
-        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -(BackLowerLeg_Length / 2)], size=[0.2, 0.2, BackLowerLeg_Length])
-        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -(FrontLowerLeg_Length / 2)], size=[0.2, 0.2, FrontLowerLeg_Length])
-        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -(LeftLowerLeg_Length / 2)], size=[0.2, 0.2, LeftLowerLeg_Length])
-        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -(RightLowerLeg_Length / 2)], size=[0.2, 0.2, RightLowerLeg_Length])
+        pyrosim.Send_Cube(name="BackLeg", pos=[0, -(BackLeg_Length / 2), 0], size=[BackLeg_Girth, BackLeg_Length, BackLeg_Girth])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[0, (FrontLeg_Length / 2), 0], size=[FrontLeg_Girth, FrontLeg_Length, FrontLeg_Girth])
+        pyrosim.Send_Cube(name="LeftLeg", pos=[-(LeftLeg_Length / 2), 0, 0], size=[LeftLeg_Length, LeftLeg_Girth, LeftLeg_Girth])
+        pyrosim.Send_Cube(name="RightLeg", pos=[(RightLeg_Length / 2), 0, 0], size=[RightLeg_Length, RightLeg_Girth, RightLeg_Girth])
+        pyrosim.Send_Cube(name="BackLowerLeg", pos=[0, 0, -(BackLowerLeg_Length / 2)], size=[BackLowerLeg_Girth, BackLowerLeg_Girth, BackLowerLeg_Length])
+        pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0, 0, -(FrontLowerLeg_Length / 2)], size=[FrontLowerLeg_Girth, FrontLowerLeg_Girth, FrontLowerLeg_Length])
+        pyrosim.Send_Cube(name="LeftLowerLeg", pos=[0, 0, -(LeftLowerLeg_Length / 2)], size=[LeftLowerLeg_Girth, LeftLowerLeg_Girth, LeftLowerLeg_Length])
+        pyrosim.Send_Cube(name="RightLowerLeg", pos=[0, 0, -(RightLowerLeg_Length / 2)], size=[RightLowerLeg_Girth, RightLowerLeg_Girth, RightLowerLeg_Length])
 
         # Creates a joint of format parent_child
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[0, -0.5, 1], jointAxis = "1 0 0")
@@ -117,6 +133,16 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
+
+        # Create a 1x4 matrix of random leg lengths 0.5-1.5
+        # row 1 = upper
+        # row 2 = lower
+        self.leg_lengths = numpy.random.rand(2, c.numLegs) + 0.5
+
+        # Create a 1x4 matrix of random leg thicknesses 0.1-0.5
+        # row 1 = upper
+        # row 2 = lower
+        self.leg_girths = 0.4 * numpy.random.rand(2, c.numLegs) + 0.1
 
         randomRow = numpy.random.randint(0,c.numSensorNeurons)
         randomColumn = numpy.random.randint(0,c.numMotorNeurons)
